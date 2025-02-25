@@ -1,28 +1,25 @@
 <?php
 session_start();
-require 'db_connection.php';
-
-if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'Customer') {
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'Customer') {
     header("Location: login.html");
     exit();
 }
 
+require 'config.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['service_id'])) {
     $customer_id = $_SESSION['user_id'];
-    $service_id = intval($_POST['service_id']);
+    $service_id = $_POST['service_id'];
 
-    $stmt = $conn->prepare("INSERT INTO bookings (customer_id, service_id) VALUES (?, ?)");
+    $insertBooking = "INSERT INTO bookings (customer_id, service_id) VALUES (?, ?)";
+    $stmt = $conn->prepare($insertBooking);
     $stmt->bind_param("ii", $customer_id, $service_id);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Booking successful!'); window.location.href='services.php';</script>";
+        header("Location: dashboard.php?message=Booking successful");
+        exit();
     } else {
-        echo "<script>alert('Booking failed. Try again.'); window.history.back();</script>";
+        echo "Error: " . $conn->error;
     }
-
-    $stmt->close();
-    $conn->close();
-} else {
-    header("Location: services.php");
 }
 ?>

@@ -15,9 +15,11 @@ CREATE TABLE services (
     description TEXT NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     artist_id INT NOT NULL,
+    image_url VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (artist_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
 
 CREATE TABLE bookings (
     id INT AUTO_INCREMENT PRIMARY KEY,

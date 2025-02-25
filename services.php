@@ -1,14 +1,15 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'Customer') {
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'Customer') {
     header("Location: login.html");
     exit();
 }
 
-require 'db_connection.php';
+require 'config.php'; // Database connection
 
-$query = "SELECT * FROM services";
-$result = $conn->query($query);
+// Fetch services from the database
+$servicesQuery = "SELECT * FROM services";
+$result = $conn->query($servicesQuery);
 ?>
 
 <!DOCTYPE html>
@@ -21,15 +22,15 @@ $result = $conn->query($query);
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="text-center">Book a Makeup Service</h2>
+        <h2 class="text-center">Choose a Makeup Service</h2>
         <div class="row">
             <?php while ($service = $result->fetch_assoc()): ?>
-                <div class="col-md-4">
-                    <div class="card mb-3">
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="<?= htmlspecialchars($service['image_url']); ?>" class="card-img-top" alt="Service Image">
                         <div class="card-body">
                             <h5 class="card-title"><?= htmlspecialchars($service['name']); ?></h5>
                             <p class="card-text"><?= htmlspecialchars($service['description']); ?></p>
-                            <p><strong>Price:</strong> ₹<?= number_format($service['price'], 2); ?></p>
                             <form action="book_service.php" method="POST">
                                 <input type="hidden" name="service_id" value="<?= $service['id']; ?>">
                                 <button type="submit" class="btn btn-primary">Book Now</button>
@@ -39,7 +40,7 @@ $result = $conn->query($query);
                 </div>
             <?php endwhile; ?>
         </div>
-        <a href="dashboard.php" class="btn btn-dark">Back to Dashboard</a>
+        <a href="dashboard.php" class="btn btn-dark mt-3">Back to Dashboard</a>
     </div>
 </body>
 </html>

@@ -30,3 +30,9 @@ CREATE TABLE bookings (
     FOREIGN KEY (customer_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (service_id) REFERENCES services(id) ON DELETE CASCADE
 );
+
+
+INSERT INTO services (name, description, image_url) VALUES
+('Bridal Makeup', 'Get the perfect bridal look for your special day.', 'images/bridal.jpg'),
+('Birthday Party Makeup', 'Look stunning for your birthday celebration.', 'images/birthday.jpg'),
+('General Makeup', 'Flawless everyday makeup for any occasion.', 'images/general.jpg');

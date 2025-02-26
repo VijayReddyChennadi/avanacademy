@@ -1,15 +1,21 @@
 <?php
 session_start();
+require 'config.php';
+require 'logger.php';
+
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'Customer') {
+    logError("Unauthorized access attempt to services.php");
     header("Location: login.html");
     exit();
 }
 
-require 'config.php'; // Database connection
-
-// Fetch services from the database
 $servicesQuery = "SELECT * FROM services";
 $result = $conn->query($servicesQuery);
+
+if (!$result) {
+    logError("Failed to fetch services: " . $conn->error);
+    die("An error occurred while loading services.");
+}
 ?>
 
 <!DOCTYPE html>

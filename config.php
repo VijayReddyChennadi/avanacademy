@@ -2,9 +2,9 @@
 require 'logger.php';
 
 $servername = "localhost";
-$username = "your_db_user";
-$password = "your_db_password";
-$dbname = "your_database_name";
+$username = "root"; // Change as needed
+$password = ""; // Change as needed
+$dbname = "avan_makeup_academy";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

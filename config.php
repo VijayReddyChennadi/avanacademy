@@ -2,9 +2,9 @@
 require 'logger.php';
 
 $servername = "localhost";
-$username = "root"; // Change as needed
-$password = ""; // Change as needed
-$dbname = "avan_makeup_academy";
+$username = "u289603047_admin"; // Change as needed
+$password = "Chennadi@Ally24"; // Change as needed
+$dbname = "u289603047_avanacademy";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

@@ -4,7 +4,7 @@ require 'logger.php';
 require 'config.php';
 
 if (!isset($_SESSION['user_id'])) {
-    logError("Unauthorized access to dashboard.php");
+    logError("Unauthorized access to test dashboard.php");
     header("Location: login.html");
     exit();
 }
